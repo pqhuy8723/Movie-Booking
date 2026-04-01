@@ -32,7 +32,6 @@ public class User {
     @Column(length = 15)
     private String phone;
 
-    private String avatar;
 
     @Enumerated(EnumType.STRING)
     private Gender gender;
