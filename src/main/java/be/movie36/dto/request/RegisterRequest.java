@@ -1,4 +1,4 @@
-package be.movie36.dto;
+package be.movie36.dto.request;
 
 import lombok.Data;
 
