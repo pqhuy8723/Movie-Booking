@@ -16,9 +16,19 @@ public enum ErrorCode {
     LOGIN_FAILED(401, "Email hoặc mật khẩu không chính xác"),
     USER_NOT_FOUND(404, "Không tìm thấy người dùng"),
 
+    WRONG_OLD_PASSWORD(400, "Mật khẩu cũ không đúng"),
+    PASSWORD_NOT_MATCH(400, "Mật khẩu mới và xác nhận mật khẩu không khớp"),
+    SAME_PASSWORD(400, "Mật khẩu mới không được trùng với mật khẩu cũ"),
+
     INVALID_INPUT(400, "Dữ liệu không hợp lệ"),
     INVALID_GENDER(400, "Gender không hợp lệ, chỉ chấp nhận: MALE, FEMALE, OTHER"),
-    INTERNAL_ERROR(500, "Lỗi hệ thống, vui lòng thử lại sau");
+    INTERNAL_ERROR(500, "Lỗi hệ thống, vui lòng thử lại sau"),
+
+    OTP_INVALID(400, "OTP không hợp lệ"),
+    OTP_EXPIRED(400, "OTP đã hết hạn, vui lòng yêu cầu OTP mới"),
+    OTP_USED(400, "OTP đã được sử dụng"),
+    EMAIL_SEND_FAILED(500, "Gửi email thất bại, vui lòng thử lại");
+
 
     private final int status;
     private final String message;

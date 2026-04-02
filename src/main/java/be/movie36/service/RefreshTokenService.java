@@ -5,7 +5,6 @@ import be.movie36.entity.User;
 import be.movie36.exception.AppException;
 import be.movie36.exception.ErrorCode;
 import be.movie36.repository.RefreshTokenRepository;
-import be.movie36.security.jwt.JwtService;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

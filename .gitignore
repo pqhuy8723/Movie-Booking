@@ -35,3 +35,11 @@ build/
 # env files
 .env
 .env.*
+# application
+application-dev.yml
+application-local.yml
+application-prod.yml
+
+# Logs
+*.log
+logs/

@@ -1,10 +1,9 @@
 spring:
   application:
     name: movie36
-  datasource:
-    url: jdbc:mysql://localhost:3306/movie_db?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
-    username: root
-    password: sa123
+
+  profiles:
+    active: dev
 
   jpa:
     hibernate:
@@ -15,10 +14,16 @@ spring:
         dialect: org.hibernate.dialect.MySQLDialect
         format_sql: true
 
-jwt:
-  secret: ${JWT_SECRET:defaultSecretForDevOnly12345678901234567890}
-  expiration-time: ${JWT_EXPIRATION_TIME:86400000}
-  refresh-expiration-time: ${JWT_REFRESH_EXPIRATION_TIME:604800000}
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+            required: true
 
 server:
   port: 8080

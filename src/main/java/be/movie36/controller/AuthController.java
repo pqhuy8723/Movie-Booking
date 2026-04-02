@@ -2,12 +2,11 @@ package be.movie36.controller;
 
 
 import be.movie36.constant.Message;
-import be.movie36.dto.request.LoginRequest;
-import be.movie36.dto.request.RefreshTokenRequest;
-import be.movie36.dto.request.RegisterRequest;
+import be.movie36.dto.request.*;
 import be.movie36.dto.response.ApiResponse;
 import be.movie36.dto.response.AuthResponse;
 import be.movie36.service.AuthService;
+import be.movie36.service.PasswordResetService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 public class AuthController {
     private final AuthService authService;
+    private final PasswordResetService passwordResetService;
 
     // POST /api/auth/register
     @PostMapping("/register")
@@ -42,7 +42,7 @@ public class AuthController {
     public ResponseEntity<ApiResponse<Void>> logout(
             @AuthenticationPrincipal UserDetails userDetails) {
 
-        authService.logout(userDetails.getUsername()); // username = email
+        authService.logout(userDetails.getUsername());
         return ResponseEntity.ok(ApiResponse.success(Message.LOGOUT_SUCESS));
     }
 
@@ -53,6 +53,34 @@ public class AuthController {
 
         AuthResponse data = authService.refreshToken(request);
         return ResponseEntity.ok(ApiResponse.success(Message.REFRESH_SUCESS, data));
+    }
+
+    //  // PUT /api/auth/change-password
+    @PutMapping("/change-password")
+    public ResponseEntity<ApiResponse<Void>> changePassword(@AuthenticationPrincipal UserDetails userDetails,
+                                                            @Valid @RequestBody ChangePasswordRequest request) {
+        authService.changePassword(userDetails.getUsername(), request);
+        return ResponseEntity.ok(ApiResponse.success(Message.CHANGEPASSWORD_SUCESS));
+    }
+
+    // POST /api/auth/forgot-password
+    @PostMapping("/forgot-password")
+    public ResponseEntity<ApiResponse<Void>> forgotPassword(
+            @Valid @RequestBody ForgotPasswordRequest request) {
+
+        passwordResetService.sendOtp(request);
+        return ResponseEntity.ok(
+                ApiResponse.success("Mã OTP đã được gửi đến email của bạn"));
+    }
+
+    // POST /api/auth/reset-password  (public)
+    @PostMapping("/reset-password")
+    public ResponseEntity<ApiResponse<Void>> resetPassword(
+            @Valid @RequestBody ResetPasswordRequest request) {
+
+        passwordResetService.resetPassword(request);
+        return ResponseEntity.ok(
+                ApiResponse.success("Đặt lại mật khẩu thành công, vui lòng đăng nhập lại"));
     }
 
 }

@@ -7,4 +7,6 @@ public final class Message {
     public static final String LOGIN_SUCESS = "Đăng nhập thành công";
     public static final String LOGOUT_SUCESS = "Đăng xuất thành công";
     public static final String REFRESH_SUCESS = "Cấp token mới thành công";
+
+    public static final String CHANGEPASSWORD_SUCESS = "Đổi mật khẩu thành công, vui lòng đăng nhập lại";
 }

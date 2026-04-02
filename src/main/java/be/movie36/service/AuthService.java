@@ -1,5 +1,6 @@
 package be.movie36.service;
 
+import be.movie36.dto.request.ChangePasswordRequest;
 import be.movie36.dto.request.LoginRequest;
 import be.movie36.dto.request.RefreshTokenRequest;
 import be.movie36.dto.request.RegisterRequest;
@@ -23,6 +24,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+
 @Service
 @RequiredArgsConstructor
 public class AuthService {
@@ -86,6 +88,31 @@ public class AuthService {
         refreshTokenService.revokeToken(request.getRefreshToken());
 
         return buildAuthResponse(oldToken.getUser());
+    }
+
+    // changepasswod
+    @Transactional
+    public void changePassword(String email, ChangePasswordRequest request) {
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new AppException(ErrorCode.USER_NOT_FOUND));
+
+        if (!passwordEncoder.matches(request.getOldPassword(), user.getPassword())) {
+            throw new AppException(ErrorCode.WRONG_OLD_PASSWORD);
+        }
+
+        if (passwordEncoder.matches(request.getNewPassword(), user.getPassword())) {
+            throw new AppException(ErrorCode.SAME_PASSWORD);
+        }
+
+        if (!request.getNewPassword().equals(request.getConfirmPassword())) {
+            throw new AppException(ErrorCode.PASSWORD_NOT_MATCH);
+        }
+
+        user.setPassword(passwordEncoder.encode(request.getNewPassword()));
+        userRepository.save(user);
+
+        refreshTokenService.revokeAllTokensByUser(user.getId());
+
     }
 
     // helper
