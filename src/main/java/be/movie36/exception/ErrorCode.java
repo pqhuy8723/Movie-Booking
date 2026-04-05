@@ -24,6 +24,21 @@ public enum ErrorCode {
     INVALID_GENDER(400, "Gender không hợp lệ, chỉ chấp nhận: MALE, FEMALE, OTHER"),
     INTERNAL_ERROR(500, "Lỗi hệ thống, vui lòng thử lại sau"),
 
+    GOOGLE_EMAIL_NOT_FOUND(400, "Không lấy được email từ Google"),
+
+
+    GENRE_NOT_FOUND(404, "Không tìm thấy thể loại phim"),
+    GENRE_EXISTED(400, "Thể loại phim đã tồn tại"),
+
+    LANGUAGE_NOT_FOUND(404, "Không tìm thấy ngôn ngữ"),
+    LANGUAGE_EXISTED(400, "Ngôn ngữ đã tồn tại"),
+
+
+    MOVIE_TYPE_NOT_FOUND(404, "Không tìm thấy loại phim"),
+    MOVIE_TYPE_EXISTED(400, "Loại phim đã tồn tại"),
+
+    INVALID_STATUS(400, "Trạng thái không hợp lệ, chỉ chấp nhận: ACTIVE, INACTIVE"),
+
     OTP_INVALID(400, "OTP không hợp lệ"),
     OTP_EXPIRED(400, "OTP đã hết hạn, vui lòng yêu cầu OTP mới"),
     OTP_USED(400, "OTP đã được sử dụng"),
