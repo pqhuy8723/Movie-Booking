@@ -15,4 +15,11 @@ public final class Message {
     public static final String CREATE_GENRE_SUCESS = "Tạo thể loại thành công";
     public static final String UPDATE_GENRE_SUCESS = "Cập nhật thể loại thành công";
     public static final String DELETE_GENRE_SUCESS ="Xóa thể loại thành công";
+
+    public static final String GET_LANGUAGE_SUCESS = "Lấy danh sách ngôn ngữ thành công";
+    public static final String GET_LANGUAGE_BYID = "Lấy danh sách thành công";
+    public static final String CREATE_LANGUAGE_SUCESS = "Tạo ngôn ngữ thành công";
+    public static final String UPDATE_LANGUAGE_SUCESS = "Cập nhật ngôn ngữ thành công";
+    public static final String DELETE_LANGUAGE_SUCESS ="Xóa ngôn ngữ thành công";
+
 }
