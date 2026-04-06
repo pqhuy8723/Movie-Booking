@@ -39,6 +39,16 @@ public enum ErrorCode {
 
     INVALID_STATUS(400, "Trạng thái không hợp lệ, chỉ chấp nhận: ACTIVE, INACTIVE"),
 
+    ACTOR_NOT_FOUND(404, "Không tìm thấy diễn viên"),
+    ACTOR_EXISTED(400, "Diễn viên đã tồn tại"),
+    DIRECTOR_NOT_FOUND(404, "Không tìm thấy đạo diễn"),
+    DIRECTOR_EXISTED(400, "Đạo diễn đã tồn tại"),
+
+    MOVIE_NOT_FOUND(404, "Không tìm thấy phim"),
+    MOVIE_EXISTED(400, "Phim đã tồn tại"),
+    MOVIE_HAS_ACTIVE_SHOWTIME(400, "Không thể xóa phim đang có suất chiếu active"),
+
+
     OTP_INVALID(400, "OTP không hợp lệ"),
     OTP_EXPIRED(400, "OTP đã hết hạn, vui lòng yêu cầu OTP mới"),
     OTP_USED(400, "OTP đã được sử dụng"),

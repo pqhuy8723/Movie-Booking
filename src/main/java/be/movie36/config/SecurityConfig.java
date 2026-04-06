@@ -6,6 +6,7 @@ import be.movie36.security.OAuth2SuccessHandler;
 import be.movie36.security.jwt.JwtAuthenticationEntryPoint;
 import be.movie36.security.jwt.JwtAuthenticationFilter;
 import be.movie36.service.OAuth2UserService;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -18,6 +19,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.oauth2.client.web.HttpSessionOAuth2AuthorizationRequestRepository;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
@@ -38,7 +40,6 @@ public class SecurityConfig {
         return new BCryptPasswordEncoder(12);
     }
 
-
     @Bean
     public AuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider(userDetailsService);
@@ -52,39 +53,74 @@ public class SecurityConfig {
     }
 
     @Bean
+    public HttpSessionOAuth2AuthorizationRequestRepository authorizationRequestRepository() {
+        return new HttpSessionOAuth2AuthorizationRequestRepository();
+    }
+
+    @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(
+                                // Auth — public
                                 "/api/auth/register",
                                 "/api/auth/login",
                                 "/api/auth/refresh",
                                 "/api/auth/forgot-password",
                                 "/api/auth/reset-password",
+
+                                // OAuth2
+                                "/oauth2/**",
+                                "/login/oauth2/code/**",
+
+                                // Movie — public
+                                "/api/movies/active",
+                                "/api/movies/{id}",
+                                "/api/movies/genre/**",
+                                "/api/movies/type/**",
+
+                                // Genre, Language, MovieType — public (chỉ active)
                                 "/api/genres/active",
                                 "/api/languages/active",
                                 "/api/movie-types/active",
-                                "/oauth2/**",
-                                "/login/oauth2/code/**",
+
+                                // Actor, Director — public
+                                "/api/actors/**",
+                                "/api/directors/**",
+
+                                // Swagger
+                                "/swagger-ui/**",
+                                "/v3/api-docs/**",
+
+                                // Static
                                 "/css/**",
                                 "/js/**",
-                                "/images/**",
-                                "/swagger-ui/**",
-                                "/v3/api-docs/**"
+                                "/images/**"
                         ).permitAll()
 
-                        .requestMatchers("/api/admin/**",
+                        // Chỉ ADMIN mới quản lý được
+                        .requestMatchers(
+                                "/api/admin/**",
+                                "/api/movies/**",
                                 "/api/genres/**",
                                 "/api/languages/**",
-                                "/api/movie-types/**").hasRole("ADMIN")
+                                "/api/movie-types/**"
+                        ).hasRole("ADMIN")
+
+                        // Còn lại phải đăng nhập
                         .anyRequest().authenticated()
                 )
-                .exceptionHandling(ex -> ex.authenticationEntryPoint(jwtAuthenticationEntryPoint))
+                .exceptionHandling(ex -> ex
+                        .authenticationEntryPoint(jwtAuthenticationEntryPoint)
+                )
                 .sessionManagement(session ->
                         session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 )
                 .oauth2Login(oauth2 -> oauth2
+                        .authorizationEndpoint(authorization -> authorization
+                                .authorizationRequestRepository(authorizationRequestRepository())
+                        )
                         .userInfoEndpoint(userInfo -> userInfo
                                 .userService(oAuth2UserService)
                         )
