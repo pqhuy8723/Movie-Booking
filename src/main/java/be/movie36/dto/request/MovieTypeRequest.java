@@ -5,9 +5,9 @@ import jakarta.validation.constraints.Size;
 import lombok.Data;
 
 @Data
-public class LanguageRequest {
-    @NotBlank(message = "Tên ngôn ngữ không được để trống")
-    @Size(max = 50, message = "Tên ngôn ngữ không quá 50 ký tự")
+public class MovieTypeRequest {
+    @NotBlank(message = "Tên loại phim không được để trống")
+    @Size(max = 50, message = "Tên loại phim không quá 50 ký tự")
     private String name;
 
     private String status;

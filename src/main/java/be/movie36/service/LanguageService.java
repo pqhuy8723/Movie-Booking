@@ -1,10 +1,7 @@
 package be.movie36.service;
 
-import be.movie36.dto.request.GenreRequest;
 import be.movie36.dto.request.LanguageRequest;
-import be.movie36.dto.response.GenreResponse;
-import be.movie36.dto.response.LanguageResonse;
-import be.movie36.entity.Genre;
+import be.movie36.dto.response.LanguageResponse;
 import be.movie36.entity.Language;
 import be.movie36.enums.Status;
 import be.movie36.exception.AppException;
@@ -21,7 +18,7 @@ public class LanguageService {
     private final LanguageRepository languageRepository;
 
     // tao moi
-    public LanguageResonse create(LanguageRequest request) {
+    public LanguageResponse create(LanguageRequest request) {
         if (languageRepository.findByName(request.getName()).isPresent()) {
             throw new AppException(ErrorCode.LANGUAGE_EXISTED);
         }
@@ -33,23 +30,23 @@ public class LanguageService {
     }
 
     // lay ra tat ca
-    public List<LanguageResonse> getAll() {
+    public List<LanguageResponse> getAll() {
         return languageRepository.findAll().stream().map(this::toResponse).toList();
     }
 
     // lay tat ca dang o trang thai active
-    public List<LanguageResonse> getAllActive() {
+    public List<LanguageResponse> getAllActive() {
         return languageRepository.findByStatus(Status.ACTIVE).stream().map(this::toResponse).toList();
     }
 
     // lay theo id
-    public LanguageResonse getById(Long id) {
+    public LanguageResponse getById(Long id) {
         return toResponse(findById(id));
     }
 
     // cap nhat
 
-    public LanguageResonse update(Long id, LanguageRequest request) {
+    public LanguageResponse update(Long id, LanguageRequest request) {
         Language language = findById(id);
 
         // Kiểm tra tên mới có bị trùng với genre khác không
@@ -90,8 +87,8 @@ public class LanguageService {
         }
     }
 
-    private LanguageResonse toResponse(Language language) {
-        return LanguageResonse.builder()
+    private LanguageResponse toResponse(Language language) {
+        return LanguageResponse.builder()
                 .id(language.getId())
                 .name(language.getName())
                 .status(language.getStatus().name())

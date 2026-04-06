@@ -4,7 +4,7 @@ package be.movie36.controller;
 import be.movie36.constant.Message;
 import be.movie36.dto.request.LanguageRequest;
 import be.movie36.dto.response.ApiResponse;
-import be.movie36.dto.response.LanguageResonse;
+import be.movie36.dto.response.LanguageResponse;
 import be.movie36.service.LanguageService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -23,28 +23,28 @@ public class LanguageController {
 
     // GET /api/language — lấy tất cả (ADMIN)
     @GetMapping
-    public ResponseEntity<ApiResponse<List<LanguageResonse>>> getAll() {
+    public ResponseEntity<ApiResponse<List<LanguageResponse>>> getAll() {
         return ResponseEntity.ok(
                 ApiResponse.success(Message.GET_LANGUAGE_SUCESS, service.getAll()));
     }
 
-    // GET /api/language/active — lấy các genre đang active (PUBLIC)
+    // GET /api/language/active — lấy các language đang active (PUBLIC)
     @GetMapping("/active")
-    public ResponseEntity<ApiResponse<List<LanguageResonse>>> getAllActive() {
+    public ResponseEntity<ApiResponse<List<LanguageResponse>>> getAllActive() {
         return ResponseEntity.ok(
                 ApiResponse.success(Message.GET_LANGUAGE_SUCESS, service.getAllActive()));
     }
 
     // GET /api/language/{id}
     @GetMapping("/{id}")
-    public ResponseEntity<ApiResponse<LanguageResonse>> getById(@PathVariable Long id) {
+    public ResponseEntity<ApiResponse<LanguageResponse>> getById(@PathVariable Long id) {
         return ResponseEntity.ok(
                 ApiResponse.success(Message.GET_LANGUAGE_BYID, service.getById(id)));
     }
 
     // POST /api/language (ADMIN)
     @PostMapping
-    public ResponseEntity<ApiResponse<LanguageResonse>> create(
+    public ResponseEntity<ApiResponse<LanguageResponse>> create(
             @Valid @RequestBody LanguageRequest request) {
         return ResponseEntity.ok(
                 ApiResponse.success(Message.CREATE_LANGUAGE_SUCESS, service.create(request)));
@@ -52,7 +52,7 @@ public class LanguageController {
 
     // PUT /api/language/{id} (ADMIN)
     @PutMapping("/{id}")
-    public ResponseEntity<ApiResponse<LanguageResonse>> update(
+    public ResponseEntity<ApiResponse<LanguageResponse>> update(
             @PathVariable Long id,
             @Valid @RequestBody LanguageRequest request) {
         return ResponseEntity.ok(

@@ -11,5 +11,5 @@ import java.util.Optional;
 public interface MovieTypeRepository extends JpaRepository<MovieType, Long> {
     Optional<MovieType> findByName(String name);
 
-    List<Language> findByStatus(Status status);
+    List<MovieType> findByStatus(Status status);
 }
