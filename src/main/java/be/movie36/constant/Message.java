@@ -10,4 +10,9 @@ public final class Message {
     public static final String CHANGEPASSWORD_SUCESS = "Đổi mật khẩu thành công, vui lòng đăng nhập lại";
     public static final String EMAIL_NOTFOUND = "Email không tìm thấy";
     public static final String LOGIN_GG_SUCESS = "Đăng nhập Google thành công";
+    public static final String GET_GENRE_SUCESS = "Lấy danh sách thể loại thành công";
+    public static final String GET_GENRE_BYID = "Lấy thể loại thành công";
+    public static final String CREATE_GENRE_SUCESS = "Tạo thể loại thành công";
+    public static final String UPDATE_GENRE_SUCESS = "Cập nhật thể loại thành công";
+    public static final String DELETE_GENRE_SUCESS ="Xóa thể loại thành công";
 }

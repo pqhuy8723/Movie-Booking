@@ -62,6 +62,9 @@ public class SecurityConfig {
                                 "/api/auth/refresh",
                                 "/api/auth/forgot-password",
                                 "/api/auth/reset-password",
+                                "/api/genres/active",
+                                "/api/languages/active",
+                                "/api/movie-types/active",
                                 "/oauth2/**",
                                 "/login/oauth2/code/**",
                                 "/css/**",
@@ -71,7 +74,10 @@ public class SecurityConfig {
                                 "/v3/api-docs/**"
                         ).permitAll()
 
-                        .requestMatchers("/api/admin/**").hasRole("ADMIN")
+                        .requestMatchers("/api/admin/**",
+                                "/api/genres/**",
+                                "/api/languages/**",
+                                "/api/movie-types/**").hasRole("ADMIN")
                         .anyRequest().authenticated()
                 )
                 .exceptionHandling(ex -> ex.authenticationEntryPoint(jwtAuthenticationEntryPoint))
