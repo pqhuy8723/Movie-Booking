@@ -63,4 +63,15 @@ public class GenreController {
         return ResponseEntity.ok(ApiResponse.success(Message.DELETE_GENRE_SUCESS));
     }
 
+    // PATCH /api/genres/{id}/restore (ADMIN)
+    @PatchMapping("/{id}/restore")
+    public ResponseEntity<ApiResponse<Void>> restore(@PathVariable Long id) {
+        genreService.restore(id);
+        return ResponseEntity.ok(ApiResponse.success(Message.RESTORE_SUCCESS));
+    }
+
+
+
+
+
 }

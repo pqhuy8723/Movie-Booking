@@ -64,10 +64,18 @@ public class GenreService {
         return toResponse(genreRepository.save(genre));
     }
 
-    // xoa
+    // xoa chuyen active trang inactive
     public void delete(Long id) {
         Genre genre = findById(id);
-        genreRepository.delete(genre);
+        genre.setStatus(Status.INACTIVE);
+        genreRepository.save(genre);
+    }
+
+    // chuyen inactive sang active
+    public  void restore(Long id){
+        Genre genre = findById(id);
+        genre.setStatus(Status.ACTIVE);
+        genreRepository.save(genre);
     }
 
     // helper

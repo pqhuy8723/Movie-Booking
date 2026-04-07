@@ -66,7 +66,15 @@ public class LanguageService {
     // xoa
     public void delete(Long id) {
         Language language = findById(id);
-        languageRepository.delete(language);
+        language.setStatus(Status.INACTIVE);
+        languageRepository.save(language);
+    }
+
+    // chuyen inactive sang active
+    public  void restore(Long id){
+        Language language = findById(id);
+        language.setStatus(Status.ACTIVE);
+        languageRepository.save(language);
     }
 
     // helper
