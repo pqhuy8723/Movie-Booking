@@ -61,7 +61,7 @@ public class OAuth2SuccessHandler implements AuthenticationSuccessHandler {
         response.setStatus(HttpServletResponse.SC_OK);
         objectMapper.writeValue(
                 response.getOutputStream(),
-                ApiResponse.success(Message.LOGIN_GG_SUCESS, authResponse)
+                ApiResponse.success(Message.LOGIN_GOOGLE_SUCCESS, authResponse)
         );
     }
 }

@@ -25,40 +25,48 @@ public class DirectorController {
     // GET /api/directors
     @GetMapping
     public ResponseEntity<ApiResponse<List<DirectorResponse>>> getAll() {
-        return ResponseEntity.ok(ApiResponse.success("Thành công", directorService.getAll()));
+        return ResponseEntity.ok(ApiResponse.success(Message.GET_DIRECTOR_SUCCESS, directorService.getAll()));
     }
 
-    // GET /api/directors/active — lấy các genre đang active (PUBLIC)
+    // GET /api/directors/search
     @GetMapping("/search")
     public ResponseEntity<ApiResponse<List<DirectorResponse>>> search(@RequestParam String name) {
-        return ResponseEntity.ok(ApiResponse.success("Thành công", directorService.search(name)));
+        return ResponseEntity.ok(ApiResponse.success(Message.GET_DIRECTOR_SUCCESS, directorService.search(name)));
     }
 
     // GET /api/directors/{id}
     @GetMapping("/{id}")
     public ResponseEntity<ApiResponse<DirectorResponse>> getById(@PathVariable Long id) {
-        return ResponseEntity.ok(ApiResponse.success("Thành công", directorService.getById(id)));
+        return ResponseEntity.ok(ApiResponse.success(Message.GET_DIRECTOR_BYID, directorService.getById(id)));
     }
 
     // POST /api/directors (ADMIN)
     @PostMapping
     public ResponseEntity<ApiResponse<DirectorResponse>> create(
             @Valid @RequestBody DirectorRequest request) {
-        return ResponseEntity.ok(ApiResponse.success("Tạo diễn viên thành công",
+        return ResponseEntity.ok(ApiResponse.success(Message.CREATE_DIRECTOR_SUCCESS,
                 directorService.create(request)));
     }
+
     // PUT /api/directors (ADMIN)
     @PutMapping("/{id}")
     public ResponseEntity<ApiResponse<DirectorResponse>> update(
             @PathVariable Long id, @Valid @RequestBody DirectorRequest request) {
-        return ResponseEntity.ok(ApiResponse.success("Cập nhật thành công",
+        return ResponseEntity.ok(ApiResponse.success(Message.UPDATE_DIRECTOR_SUCCESS,
                 directorService.update(id, request)));
     }
-
+    // DELETE /api/directors/{id} (ADMIN)
     @DeleteMapping("/{id}")
     public ResponseEntity<ApiResponse<Void>> delete(@PathVariable Long id) {
         directorService.delete(id);
-        return ResponseEntity.ok(ApiResponse.success("Xóa diễn viên thành công"));
+        return ResponseEntity.ok(ApiResponse.success(Message.DELETE_DIRECTOR_SUCCESS));
+    }
+
+    // PATCH /api/directors/{id}/restore (ADMIN)
+    @PatchMapping("/{id}/restore")
+    public ResponseEntity<ApiResponse<Void>> restore(@PathVariable Long id) {
+        directorService.restore(id);
+        return ResponseEntity.ok(ApiResponse.success(Message.RESTORE_SUCCESS));
     }
 
 }

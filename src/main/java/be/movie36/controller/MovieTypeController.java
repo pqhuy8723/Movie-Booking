@@ -23,14 +23,14 @@ public class MovieTypeController {
     @GetMapping
     public ResponseEntity<ApiResponse<List<MovieTypeResponse>>> getAll() {
         return ResponseEntity.ok(
-                ApiResponse.success(Message.GET_MOVIETYPE_SUCESS, service.getAll()));
+                ApiResponse.success(Message.GET_MOVIETYPE_SUCCESS, service.getAll()));
     }
 
     // GET /api/movietype/active — lấy các movietype đang active (PUBLIC)
     @GetMapping("/active")
     public ResponseEntity<ApiResponse<List<MovieTypeResponse>>> getAllActive() {
         return ResponseEntity.ok(
-                ApiResponse.success(Message.GET_MOVIETYPE_SUCESS, service.getAllActive()));
+                ApiResponse.success(Message.GET_MOVIETYPE_SUCCESS, service.getAllActive()));
     }
 
     // GET /api/movietype/{id}
@@ -45,7 +45,7 @@ public class MovieTypeController {
     public ResponseEntity<ApiResponse<MovieTypeResponse>> create(
             @Valid @RequestBody MovieTypeRequest request) {
         return ResponseEntity.ok(
-                ApiResponse.success(Message.CREATE_MOVIETYPE_SUCESS, service.create(request)));
+                ApiResponse.success(Message.CREATE_MOVIETYPE_SUCCESS, service.create(request)));
     }
 
     // PUT /api/movietype/{id} (ADMIN)
@@ -54,13 +54,20 @@ public class MovieTypeController {
             @PathVariable Long id,
             @Valid @RequestBody MovieTypeRequest request) {
         return ResponseEntity.ok(
-                ApiResponse.success(Message.UPDATE_MOVIETYPE_SUCESS, service.update(id, request)));
+                ApiResponse.success(Message.UPDATE_MOVIETYPE_SUCCESS, service.update(id, request)));
     }
 
     // DELETE /api/movietype/{id} (ADMIN)
     @DeleteMapping("/{id}")
     public ResponseEntity<ApiResponse<Void>> delete(@PathVariable Long id) {
         service.delete(id);
-        return ResponseEntity.ok(ApiResponse.success(Message.DELETE_MOVIETYPE_SUCESS));
+        return ResponseEntity.ok(ApiResponse.success(Message.DELETE_MOVIETYPE_SUCCESS));
+    }
+
+    // PATCH /api/movietype/{id}/restore (ADMIN)
+    @PatchMapping("/{id}/restore")
+    public ResponseEntity<ApiResponse<Void>> restore(@PathVariable Long id) {
+        service.restore(id);
+        return ResponseEntity.ok(ApiResponse.success(Message.RESTORE_SUCCESS));
     }
 }

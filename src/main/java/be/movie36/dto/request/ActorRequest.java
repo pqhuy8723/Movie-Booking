@@ -9,4 +9,6 @@ public class ActorRequest {
     @NotBlank(message = "Tên diễn viên không được để trống")
     @Size(max = 100, message = "Tên không quá 100 ký tự")
     private String name;
+
+    private String status;
 }

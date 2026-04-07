@@ -30,10 +30,11 @@ public class MovieTypeService {
         return toResponse(movieTypeRepository.save(movieType));
     }
 
-    // lay tat ca dang o trang thai active
+    // lay tat
     public List<MovieTypeResponse> getAll() {
         return movieTypeRepository.findAll().stream().map(this::toResponse).toList();
     }
+
     // lay tat ca dang o trang thai active
     public List<MovieTypeResponse> getAllActive() {
         return movieTypeRepository.findByStatus(Status.ACTIVE).stream().map(this::toResponse).toList();
@@ -66,7 +67,15 @@ public class MovieTypeService {
     // xoa
     public void delete(Long id) {
         MovieType movieType = findById(id);
-        movieTypeRepository.delete(movieType);
+        movieType.setStatus(Status.INACTIVE);
+        movieTypeRepository.save(movieType);
+    }
+
+    // khoi phuc
+    public void restore(Long id) {
+        MovieType movieType = findById(id);
+        movieType.setStatus(Status.ACTIVE);
+        movieTypeRepository.save(movieType);
     }
 
 

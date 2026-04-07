@@ -36,7 +36,7 @@ public class OAuth2UserService extends DefaultOAuth2UserService {
         String email = (String) attributes.get("email");
         if (email == null) {
             throw new OAuth2AuthenticationException(
-                    new OAuth2Error(Message.EMAIL_NOTFOUND),
+                    new OAuth2Error(Message.EMAIL_NOT_FOUND),
                     ErrorCode.GOOGLE_EMAIL_NOT_FOUND.getMessage()
             );
         }

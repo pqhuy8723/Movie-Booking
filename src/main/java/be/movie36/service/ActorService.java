@@ -3,6 +3,7 @@ package be.movie36.service;
 import be.movie36.dto.request.ActorRequest;
 import be.movie36.dto.response.ActorResponse;
 import be.movie36.entity.Actor;
+import be.movie36.enums.Status;
 import be.movie36.exception.AppException;
 import be.movie36.exception.ErrorCode;
 import be.movie36.repository.ActorRepository;
@@ -22,7 +23,10 @@ public class ActorService {
             throw new AppException(ErrorCode.ACTOR_EXISTED);
         }
         return toResponse(actorRepository.save(
-                Actor.builder().name(request.getName()).build()));
+                Actor.builder()
+                        .name(request.getName())
+                        .status(parseStatus(request.getStatus()))
+                        .build()));
     }
 
     // lay danh sach actor
@@ -58,7 +62,16 @@ public class ActorService {
 
     // xoa
     public void delete(Long id) {
-        actorRepository.delete(findById(id));
+        Actor actor = findById(id);
+        actor.setStatus(Status.INACTIVE);
+        actorRepository.save(actor);
+    }
+
+    // khoi phuc
+    public void restore(Long id) {
+        Actor actor = findById(id);
+        actor.setStatus(Status.ACTIVE);
+        actorRepository.save(actor);
     }
 
 
@@ -66,6 +79,17 @@ public class ActorService {
     public Actor findById(Long id) {
         return actorRepository.findById(id)
                 .orElseThrow(() -> new AppException(ErrorCode.ACTOR_NOT_FOUND));
+    }
+
+    private Status parseStatus(String status) {
+        if (status == null || status.isBlank()) {
+            return Status.ACTIVE;
+        }
+        try {
+            return Status.valueOf(status.toUpperCase());
+        } catch (IllegalArgumentException e) {
+            throw new AppException(ErrorCode.INVALID_STATUS);
+        }
     }
 
     private ActorResponse toResponse(Actor actor) {

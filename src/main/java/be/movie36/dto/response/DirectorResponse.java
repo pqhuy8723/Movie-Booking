@@ -8,4 +8,5 @@ import lombok.Getter;
 public class DirectorResponse {
     private Long id;
     private String name;
+    private String status;
 }

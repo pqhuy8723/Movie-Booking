@@ -27,14 +27,14 @@ public class AuthController {
             @Valid @RequestBody RegisterRequest request) {
 
         authService.register(request);
-        return ResponseEntity.ok(ApiResponse.success(Message.REGISTER_SUCESS));
+        return ResponseEntity.ok(ApiResponse.success(Message.REGISTER_SUCCESS));
     }
 
     // POST /api/auth/login
     @PostMapping("/login")
     public ResponseEntity<ApiResponse<AuthResponse>> login(@Valid @RequestBody LoginRequest request) {
         AuthResponse data = authService.login(request);
-        return ResponseEntity.ok(ApiResponse.success(Message.LOGIN_SUCESS, data));
+        return ResponseEntity.ok(ApiResponse.success(Message.LOGIN_SUCCESS, data));
     }
 
     // POST /api/auth/logout
@@ -43,7 +43,7 @@ public class AuthController {
             @AuthenticationPrincipal UserDetails userDetails) {
 
         authService.logout(userDetails.getUsername());
-        return ResponseEntity.ok(ApiResponse.success(Message.LOGOUT_SUCESS));
+        return ResponseEntity.ok(ApiResponse.success(Message.LOGOUT_SUCCESS));
     }
 
     // POST /api/auth/refresh
@@ -52,7 +52,7 @@ public class AuthController {
             @Valid @RequestBody RefreshTokenRequest request) {
 
         AuthResponse data = authService.refreshToken(request);
-        return ResponseEntity.ok(ApiResponse.success(Message.REFRESH_SUCESS, data));
+        return ResponseEntity.ok(ApiResponse.success(Message.REFRESH_SUCCESS, data));
     }
 
     //  // PUT /api/auth/change-password
@@ -60,7 +60,7 @@ public class AuthController {
     public ResponseEntity<ApiResponse<Void>> changePassword(@AuthenticationPrincipal UserDetails userDetails,
                                                             @Valid @RequestBody ChangePasswordRequest request) {
         authService.changePassword(userDetails.getUsername(), request);
-        return ResponseEntity.ok(ApiResponse.success(Message.CHANGEPASSWORD_SUCESS));
+        return ResponseEntity.ok(ApiResponse.success(Message.CHANGE_PASSWORD_SUCCESS));
     }
 
     // POST /api/auth/forgot-password

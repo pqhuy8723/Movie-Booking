@@ -25,14 +25,14 @@ public class LanguageController {
     @GetMapping
     public ResponseEntity<ApiResponse<List<LanguageResponse>>> getAll() {
         return ResponseEntity.ok(
-                ApiResponse.success(Message.GET_LANGUAGE_SUCESS, service.getAll()));
+                ApiResponse.success(Message.GET_LANGUAGE_SUCCESS, service.getAll()));
     }
 
     // GET /api/language/active — lấy các language đang active (PUBLIC)
     @GetMapping("/active")
     public ResponseEntity<ApiResponse<List<LanguageResponse>>> getAllActive() {
         return ResponseEntity.ok(
-                ApiResponse.success(Message.GET_LANGUAGE_SUCESS, service.getAllActive()));
+                ApiResponse.success(Message.GET_LANGUAGE_SUCCESS, service.getAllActive()));
     }
 
     // GET /api/language/{id}
@@ -47,7 +47,7 @@ public class LanguageController {
     public ResponseEntity<ApiResponse<LanguageResponse>> create(
             @Valid @RequestBody LanguageRequest request) {
         return ResponseEntity.ok(
-                ApiResponse.success(Message.CREATE_LANGUAGE_SUCESS, service.create(request)));
+                ApiResponse.success(Message.CREATE_LANGUAGE_SUCCESS, service.create(request)));
     }
 
     // PUT /api/language/{id} (ADMIN)
@@ -56,14 +56,14 @@ public class LanguageController {
             @PathVariable Long id,
             @Valid @RequestBody LanguageRequest request) {
         return ResponseEntity.ok(
-                ApiResponse.success(Message.UPDATE_LANGUAGE_SUCESS, service.update(id, request)));
+                ApiResponse.success(Message.UPDATE_LANGUAGE_SUCCESS, service.update(id, request)));
     }
 
     // DELETE /api/language/{id} (ADMIN)
     @DeleteMapping("/{id}")
     public ResponseEntity<ApiResponse<Void>> delete(@PathVariable Long id) {
         service.delete(id);
-        return ResponseEntity.ok(ApiResponse.success(Message.DELETE_LANGUAGE_SUCESS));
+        return ResponseEntity.ok(ApiResponse.success(Message.DELETE_LANGUAGE_SUCCESS));
     }
     // PATCH /api/language/{id}/restore (ADMIN)
     @PatchMapping("/{id}/restore")

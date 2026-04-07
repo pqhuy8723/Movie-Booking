@@ -30,7 +30,7 @@ public class Movie {
     private String description;
 
     @Column(nullable = false)
-    private Integer duration; // phút
+    private Integer duration;
 
     private String poster;
     private String banner;

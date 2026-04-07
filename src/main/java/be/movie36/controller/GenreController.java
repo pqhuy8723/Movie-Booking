@@ -22,14 +22,14 @@ public class GenreController {
     @GetMapping
     public ResponseEntity<ApiResponse<List<GenreResponse>>> getAll() {
         return ResponseEntity.ok(
-                ApiResponse.success(Message.GET_GENRE_SUCESS, genreService.getAll()));
+                ApiResponse.success(Message.GET_GENRE_SUCCESS, genreService.getAll()));
     }
 
     // GET /api/genres/active — lấy các genre đang active (PUBLIC)
     @GetMapping("/active")
     public ResponseEntity<ApiResponse<List<GenreResponse>>> getAllActive() {
         return ResponseEntity.ok(
-                ApiResponse.success(Message.GET_GENRE_SUCESS, genreService.getAllActive()));
+                ApiResponse.success(Message.GET_GENRE_SUCCESS, genreService.getAllActive()));
     }
 
     // GET /api/genres/{id}
@@ -44,7 +44,7 @@ public class GenreController {
     public ResponseEntity<ApiResponse<GenreResponse>> create(
             @Valid @RequestBody GenreRequest request) {
         return ResponseEntity.ok(
-                ApiResponse.success(Message.CREATE_GENRE_SUCESS, genreService.create(request)));
+                ApiResponse.success(Message.CREATE_GENRE_SUCCESS, genreService.create(request)));
     }
 
     // PUT /api/genres/{id} (ADMIN)
@@ -53,14 +53,14 @@ public class GenreController {
             @PathVariable Long id,
             @Valid @RequestBody GenreRequest request) {
         return ResponseEntity.ok(
-                ApiResponse.success(Message.UPDATE_GENRE_SUCESS, genreService.update(id, request)));
+                ApiResponse.success(Message.UPDATE_GENRE_SUCCESS, genreService.update(id, request)));
     }
 
     // DELETE /api/genres/{id} (ADMIN)
     @DeleteMapping("/{id}")
     public ResponseEntity<ApiResponse<Void>> delete(@PathVariable Long id) {
         genreService.delete(id);
-        return ResponseEntity.ok(ApiResponse.success(Message.DELETE_GENRE_SUCESS));
+        return ResponseEntity.ok(ApiResponse.success(Message.DELETE_GENRE_SUCCESS));
     }
 
     // PATCH /api/genres/{id}/restore (ADMIN)

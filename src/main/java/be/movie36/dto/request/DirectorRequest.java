@@ -10,4 +10,6 @@ public class DirectorRequest {
     @NotBlank(message = "Tên đạo diễn không được để trống")
     @Size(max = 100, message = "Tên không quá 100 ký tự")
     private String name;
+
+    private String status;
 }

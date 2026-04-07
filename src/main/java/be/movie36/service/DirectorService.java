@@ -6,6 +6,7 @@ import be.movie36.dto.response.ActorResponse;
 import be.movie36.dto.response.DirectorResponse;
 import be.movie36.entity.Actor;
 import be.movie36.entity.Director;
+import be.movie36.enums.Status;
 import be.movie36.exception.AppException;
 import be.movie36.exception.ErrorCode;
 import be.movie36.repository.DirectorRepository;
@@ -20,12 +21,14 @@ public class DirectorService {
     private final DirectorRepository directorRepository;
 
     // tao ra director
-    public DirectorResponse create(DirectorRequest request){
+    public DirectorResponse create(DirectorRequest request) {
         if (directorRepository.findByName(request.getName()).isPresent()) {
             throw new AppException(ErrorCode.DIRECTOR_EXISTED);
         }
         return toResponse(directorRepository.save(
-                Director.builder().name(request.getName()).build()));
+                Director.builder().name(request.getName())
+                        .status(parseStatus(request.getStatus()))
+                        .build()));
     }
 
     // lay danh sach actor
@@ -62,7 +65,16 @@ public class DirectorService {
 
     // xoa
     public void delete(Long id) {
-        directorRepository.delete(findById(id));
+        Director director = findById(id);
+        director.setStatus(Status.INACTIVE);
+        directorRepository.delete(director);
+    }
+
+    // khoi phuc
+    public void restore(Long id) {
+        Director director = findById(id);
+        director.setStatus(Status.ACTIVE);
+        directorRepository.delete(director);
     }
 
 
@@ -72,6 +84,16 @@ public class DirectorService {
                 .orElseThrow(() -> new AppException(ErrorCode.ACTOR_NOT_FOUND));
     }
 
+    private Status parseStatus(String status) {
+        if (status == null || status.isBlank()) {
+            return Status.ACTIVE;
+        }
+        try {
+            return Status.valueOf(status.toUpperCase());
+        } catch (IllegalArgumentException e) {
+            throw new AppException(ErrorCode.INVALID_STATUS);
+        }
+    }
 
 
     private DirectorResponse toResponse(Director director) {
