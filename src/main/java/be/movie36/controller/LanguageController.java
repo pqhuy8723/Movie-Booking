@@ -65,5 +65,11 @@ public class LanguageController {
         service.delete(id);
         return ResponseEntity.ok(ApiResponse.success(Message.DELETE_LANGUAGE_SUCESS));
     }
+    // PATCH /api/language/{id}/restore (ADMIN)
+    @PatchMapping("/{id}/restore")
+    public ResponseEntity<ApiResponse<Void>> restore(@PathVariable Long id) {
+        service.restore(id);
+        return ResponseEntity.ok(ApiResponse.success(Message.RESTORE_SUCCESS));
+    }
 
 }
