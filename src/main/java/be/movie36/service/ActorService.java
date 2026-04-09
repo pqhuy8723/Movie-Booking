@@ -96,6 +96,7 @@ public class ActorService {
         return ActorResponse.builder()
                 .id(actor.getId())
                 .name(actor.getName())
+                .status(actor.getStatus().name())
                 .build();
     }
 

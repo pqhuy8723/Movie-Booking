@@ -100,6 +100,7 @@ public class DirectorService {
         return DirectorResponse.builder()
                 .id(director.getId())
                 .name(director.getName())
+                .status(director.getStatus().name())
                 .build();
     }
 

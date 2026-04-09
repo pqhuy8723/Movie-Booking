@@ -52,8 +52,17 @@ public enum ErrorCode {
     OTP_INVALID(400, "OTP không hợp lệ"),
     OTP_EXPIRED(400, "OTP đã hết hạn, vui lòng yêu cầu OTP mới"),
     OTP_USED(400, "OTP đã được sử dụng"),
-    EMAIL_SEND_FAILED(500, "Gửi email thất bại, vui lòng thử lại");
+    EMAIL_SEND_FAILED(500, "Gửi email thất bại, vui lòng thử lại"),
 
+    CINEMA_NOT_FOUND(404, "Không tìm thấy rạp phim"),
+    CINEMA_EXISTED(400, "Tên rạp phim đã tồn tại"),
+
+    SCREEN_NOT_FOUND(404, "Không tìm thấy phòng chiếu"),
+    SCREEN_EXISTED(400, "Tên phòng chiếu đã tồn tại trong rạp này"),
+
+    SEAT_NOT_FOUND(404, "Không tìm thấy ghế"),
+    SEAT_EXISTED(400, "Ghế đã tồn tại trong phòng chiếu này"),
+    INVALID_ROW_COL_COUNT(400, "Số lượng hàng ghế hoặc cột phải nằm trong khoảng (1-26)");
 
     private final int status;
     private final String message;

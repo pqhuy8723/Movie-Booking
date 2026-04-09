@@ -50,4 +50,26 @@ public final class Message {
     public static final String CREATE_DIRECTOR_SUCCESS = "Tạo đạo diễn thành công";
     public static final String UPDATE_DIRECTOR_SUCCESS = "Cập nhật đạo diễn thành công";
     public static final String DELETE_DIRECTOR_SUCCESS = "Xóa đạo diễn thành công";
+
+    // Cinema
+    public static final String GET_CINEMA_SUCCESS = "Lấy danh sách rạp phim thành công";
+    public static final String GET_CINEMA_BYID = "Lấy rạp phim thành công";
+    public static final String CREATE_CINEMA_SUCCESS = "Tạo rạp phim thành công";
+    public static final String UPDATE_CINEMA_SUCCESS = "Cập nhật rạp phim thành công";
+    public static final String DELETE_CINEMA_SUCCESS = "Xóa rạp phim thành công";
+
+    // Screen
+    public static final String GET_SCREEN_SUCCESS = "Lấy danh sách phòng chiếu thành công";
+    public static final String GET_SCREEN_BYID = "Lấy phòng chiếu thành công";
+    public static final String CREATE_SCREEN_SUCCESS = "Tạo phòng chiếu thành công";
+    public static final String UPDATE_SCREEN_SUCCESS = "Cập nhật phòng chiếu thành công";
+    public static final String DELETE_SCREEN_SUCCESS = "Xóa phòng chiếu thành công";
+
+    // Seat
+    public static final String GET_SEAT_SUCCESS = "Lấy danh sách ghế thành công";
+    public static final String GET_SEAT_BYID = "Lấy ghế thành công";
+    public static final String CREATE_SEAT_SUCCESS = "Tạo ghế thành công";
+    public static final String GENERATE_SEAT_SUCCESS = "Tạo ma trận ghế thành công";
+    public static final String UPDATE_SEAT_SUCCESS = "Cập nhật ghế thành công";
+    public static final String DELETE_SEAT_SUCCESS = "Xóa ghế thành công";
 }

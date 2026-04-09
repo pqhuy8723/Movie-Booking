@@ -1,13 +1,9 @@
 package be.movie36.controller;
 
-
 import be.movie36.constant.Message;
-import be.movie36.dto.request.ActorRequest;
 import be.movie36.dto.request.DirectorRequest;
-import be.movie36.dto.response.ActorResponse;
 import be.movie36.dto.response.ApiResponse;
 import be.movie36.dto.response.DirectorResponse;
-import be.movie36.dto.response.GenreResponse;
 import be.movie36.service.DirectorService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -55,6 +51,7 @@ public class DirectorController {
         return ResponseEntity.ok(ApiResponse.success(Message.UPDATE_DIRECTOR_SUCCESS,
                 directorService.update(id, request)));
     }
+
     // DELETE /api/directors/{id} (ADMIN)
     @DeleteMapping("/{id}")
     public ResponseEntity<ApiResponse<Void>> delete(@PathVariable Long id) {

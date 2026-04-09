@@ -89,6 +89,12 @@ public class SecurityConfig {
                                 "/api/actors/**",
                                 "/api/directors/**",
 
+                                // Cinema, Screen, Seat — public
+                                "/api/cinemas/active",
+                                "/api/cinemas/{id}",
+                                "/api/screens/cinema/**",
+                                "/api/seats/screen/**",
+
                                 // Swagger
                                 "/swagger-ui/**",
                                 "/v3/api-docs/**",
@@ -96,37 +102,33 @@ public class SecurityConfig {
                                 // Static
                                 "/css/**",
                                 "/js/**",
-                                "/images/**"
-                        ).permitAll()
+                                "/images/**")
+                        .permitAll()
 
-                        // Chỉ ADMIN mới quản lý được
                         .requestMatchers(
                                 "/api/admin/**",
                                 "/api/movies/**",
                                 "/api/genres/**",
                                 "/api/languages/**",
-                                "/api/movie-types/**"
-                        ).hasRole("ADMIN")
+                                "/api/movie-types/**",
+                                "/api/cinemas/**",
+                                "/api/screens/**",
+                                "/api/seats/**")
+                        .hasRole("ADMIN")
 
-                        // Còn lại phải đăng nhập
-                        .anyRequest().authenticated()
-                )
+                        .anyRequest().authenticated())
                 .exceptionHandling(ex -> ex
-                        .authenticationEntryPoint(jwtAuthenticationEntryPoint)
-                )
-                .sessionManagement(session ->
-                        session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                )
+                        .authenticationEntryPoint(jwtAuthenticationEntryPoint))
+                .sessionManagement(session -> session
+                        .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .oauth2Login(oauth2 -> oauth2
                         .authorizationEndpoint(authorization -> authorization
-                                .authorizationRequestRepository(authorizationRequestRepository())
-                        )
+                                .authorizationRequestRepository(
+                                        authorizationRequestRepository()))
                         .userInfoEndpoint(userInfo -> userInfo
-                                .userService(oAuth2UserService)
-                        )
+                                .userService(oAuth2UserService))
                         .successHandler(oAuth2SuccessHandler)
-                        .failureHandler(oAuth2FailureHandler)
-                )
+                        .failureHandler(oAuth2FailureHandler))
                 .authenticationProvider(authenticationProvider())
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 

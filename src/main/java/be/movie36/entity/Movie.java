@@ -4,6 +4,8 @@ import be.movie36.enums.Status;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+import be.movie36.enums.AgeRating;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -11,7 +13,10 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name="movies")
+@Table(name="movies", indexes = {
+    @Index(name = "idx_movie_status", columnList = "status"),
+    @Index(name = "idx_movie_release_date", columnList = "releaseDate")
+})
 @Getter
 @Setter
 @NoArgsConstructor
@@ -82,4 +87,18 @@ public class Movie {
 
     @CreationTimestamp
     private LocalDateTime createdAt;
+
+    @UpdateTimestamp
+    private LocalDateTime updatedAt;
+
+    private Double rating;
+
+    @Enumerated(EnumType.STRING)
+    private AgeRating ageRating;
+
+    @Column(length = 100)
+    private String country;
+
+    @OneToMany(mappedBy = "movie", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Set<Showtime> showtimes = new HashSet<>();
 }
