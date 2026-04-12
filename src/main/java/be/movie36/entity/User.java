@@ -6,6 +6,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "users")
@@ -29,10 +30,9 @@ public class User {
     @Column(length = 100)
     private String fullName;
 
-    @Column(length = 15)
+    @Column(length = 15, unique = true)
     private String phone;
 
-    private String avatar;
 
     @Enumerated(EnumType.STRING)
     private Gender gender;
@@ -45,4 +45,7 @@ public class User {
 
     @CreationTimestamp
     private LocalDateTime createdAt;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Booking> bookings;
 }
