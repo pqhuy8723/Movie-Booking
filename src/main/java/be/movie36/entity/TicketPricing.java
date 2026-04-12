@@ -1,5 +1,6 @@
 package be.movie36.entity;
 
+import be.movie36.enums.Status;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -25,4 +26,9 @@ public class TicketPricing {
 
     @Column(columnDefinition = "TEXT")
     private String rules;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    @Builder.Default
+    private Status status = Status.ACTIVE;
 }

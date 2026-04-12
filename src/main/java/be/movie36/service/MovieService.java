@@ -7,6 +7,7 @@ import be.movie36.dto.response.GenreResponse;
 import be.movie36.dto.response.MovieResponse;
 import be.movie36.entity.*;
 import be.movie36.enums.Status;
+import be.movie36.enums.AgeRating;
 import be.movie36.exception.AppException;
 import be.movie36.exception.ErrorCode;
 import be.movie36.repository.*;
@@ -42,6 +43,9 @@ public class MovieService {
                 .banner(request.getBanner())
                 .videoUrl(request.getVideoUrl())
                 .releaseDate(request.getReleaseDate())
+                .rating(request.getRating())
+                .ageRating(parseAgeRating(request.getAgeRating()))
+                .country(request.getCountry())
                 .status(parseStatus(request.getStatus()))
                 .genres(fetchGenres(request.getGenreIds()))
                 .actors(fetchActors(request.getActorIds()))
@@ -104,6 +108,9 @@ public class MovieService {
         movie.setBanner(request.getBanner());
         movie.setVideoUrl(request.getVideoUrl());
         movie.setReleaseDate(request.getReleaseDate());
+        movie.setRating(request.getRating());
+        movie.setAgeRating(parseAgeRating(request.getAgeRating()));
+        movie.setCountry(request.getCountry());
         movie.setStatus(parseStatus(request.getStatus()));
         movie.setGenres(fetchGenres(request.getGenreIds()));
         movie.setActors(fetchActors(request.getActorIds()));
@@ -113,18 +120,19 @@ public class MovieService {
 
         return toResponse(movieRepository.save(movie));
     }
-//    // xoa movie
-//    @Transactional
-//    public void delete(Long id) {
-//        Movie movie = findById(id);
-//
-//        // Chặn xóa nếu còn showtime active
-//        if (movieRepository.hasActiveShowtime(id)) {
-//            throw new AppException(ErrorCode.MOVIE_HAS_ACTIVE_SHOWTIME);
-//        }
-//
-//        movieRepository.delete(movie);
-//    }
+    // xoa movie
+    @Transactional
+    public void delete(Long id) {
+        Movie movie = findById(id);
+
+        // Chặn xóa nếu còn showtime active
+        if (movieRepository.hasActiveShowtime(id)) {
+            throw new AppException(ErrorCode.MOVIE_HAS_ACTIVE_SHOWTIME);
+        }
+
+        movie.setStatus(Status.INACTIVE);
+        movieRepository.save(movie);
+    }
 
     // Helper
     private Movie findById(Long id) {
@@ -163,6 +171,15 @@ public class MovieService {
                 .orElseThrow(() -> new AppException(ErrorCode.MOVIE_TYPE_NOT_FOUND));
     }
 
+    private AgeRating parseAgeRating(String ageRating) {
+        if (ageRating == null || ageRating.isBlank()) return AgeRating.P;
+        try {
+            return AgeRating.valueOf(ageRating.toUpperCase());
+        } catch (IllegalArgumentException e) {
+            return AgeRating.P;
+        }
+    }
+
     private Status parseStatus(String status) {
         if (status == null || status.isBlank()) return Status.ACTIVE;
         try {
@@ -182,6 +199,9 @@ public class MovieService {
                 .banner(movie.getBanner())
                 .videoUrl(movie.getVideoUrl())
                 .releaseDate(movie.getReleaseDate())
+                .rating(movie.getRating())
+                .ageRating(movie.getAgeRating() != null ? movie.getAgeRating().name() : null)
+                .country(movie.getCountry())
                 .status(movie.getStatus().name())
                 .genres(movie.getGenres().stream()
                         .map(g -> GenreResponse.builder()

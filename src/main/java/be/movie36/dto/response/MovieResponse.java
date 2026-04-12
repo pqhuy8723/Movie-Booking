@@ -18,6 +18,9 @@ public class MovieResponse {
     private String banner;
     private String videoUrl;
     private LocalDate releaseDate;
+    private Double rating;
+    private String ageRating;
+    private String country;
     private String status;
     private List<GenreResponse> genres;
     private List<ActorResponse> actors;

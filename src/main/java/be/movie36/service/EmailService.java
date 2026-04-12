@@ -34,4 +34,27 @@ public class EmailService {
             throw new AppException(ErrorCode.EMAIL_SEND_FAILED);
         }
     }
+
+    public void sendBookingConfirmationEmail(String toEmail, String bookingCode, String movieTitle, String totalAmount, java.util.List<String> seats) {
+        try {
+            SimpleMailMessage message = new SimpleMailMessage();
+            message.setFrom(fromEmail);
+            message.setTo(toEmail);
+            message.setSubject("[Movie36] Xác nhận thanh toán & Vé xem phim");
+            message.setText(
+                    "Xin chào!\n\n" +
+                    "Bạn đã thanh toán thành công vé xem phim tại Movie36.\n\n" +
+                    "Mã Đặt Vé: " + bookingCode + "\n" +
+                    "Phim: " + movieTitle + "\n" +
+                    "Ghế: " + String.join(", ", seats) + "\n" +
+                    "Tổng tiền: " + totalAmount + " VNĐ\n\n" +
+                    "Vui lòng đưa mã đặt vé này tại quầy để nhận vé cứng.\n\n" +
+                    "Movie36 Team"
+            );
+            mailSender.send(message);
+        } catch (Exception e) {
+            // Log error but don't fail the transaction
+            System.err.println("Failed to send ticket email: " + e.getMessage());
+        }
+    }
 }

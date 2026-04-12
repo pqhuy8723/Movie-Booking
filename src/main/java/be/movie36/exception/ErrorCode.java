@@ -62,7 +62,19 @@ public enum ErrorCode {
 
     SEAT_NOT_FOUND(404, "Không tìm thấy ghế"),
     SEAT_EXISTED(400, "Ghế đã tồn tại trong phòng chiếu này"),
-    INVALID_ROW_COL_COUNT(400, "Số lượng hàng ghế hoặc cột phải nằm trong khoảng (1-26)");
+    INVALID_ROW_COL_COUNT(400, "Số lượng hàng ghế hoặc cột phải nằm trong khoảng (1-26)"),
+
+    PRICING_NOT_FOUND(404, "Không tìm thấy bảng giá"),
+    PRICING_EXISTED(400, "Loại giá vé này đã tồn tại"),
+
+    SHOWTIME_NOT_FOUND(404, "Không tìm thấy suất chiếu"),
+    SHOWTIME_TIME_CONFLICT(400, "Thời gian suất chiếu bị trùng lặp với lịch chiếu khác của phòng này"),
+
+    BOOKING_NOT_FOUND(404, "Không tìm thấy giao dịch đặt vé"),
+    SEAT_ALREADY_BOOKED(400, "Một hoặc nhiều ghế bạn chọn đã có người đặt, vui lòng chọn lại"),
+    SEAT_NOT_IN_SCREEN(400, "Ghế không tồn tại trong phòng chiếu này"),
+    BOOKING_EXPIRED(400, "Giao dịch đã hết hạn thanh toán"),
+    BOOKING_ALREADY_PAID(400, "Giao dịch này đã được thanh toán rồi");
 
     private final int status;
     private final String message;

@@ -72,4 +72,25 @@ public final class Message {
     public static final String GENERATE_SEAT_SUCCESS = "Tạo ma trận ghế thành công";
     public static final String UPDATE_SEAT_SUCCESS = "Cập nhật ghế thành công";
     public static final String DELETE_SEAT_SUCCESS = "Xóa ghế thành công";
+
+    // Ticket Pricing
+    public static final String GET_PRICING_SUCCESS = "Lấy danh sách bảng giá thành công";
+    public static final String GET_PRICING_BYID = "Lấy bảng giá thành công";
+    public static final String CREATE_PRICING_SUCCESS = "Tạo bảng giá thành công";
+    public static final String UPDATE_PRICING_SUCCESS = "Cập nhật bảng giá thành công";
+    public static final String DELETE_PRICING_SUCCESS = "Xóa bảng giá thành công";
+
+    // Showtime
+    public static final String GET_SHOWTIME_SUCCESS = "Lấy danh sách suất chiếu thành công";
+    public static final String GET_SHOWTIME_BYID = "Lấy suất chiếu thành công";
+    public static final String CREATE_SHOWTIME_SUCCESS = "Tạo suất chiếu thành công";
+    public static final String UPDATE_SHOWTIME_SUCCESS = "Cập nhật suất chiếu thành công";
+    public static final String DELETE_SHOWTIME_SUCCESS = "Xóa suất chiếu thành công";
+
+    // Booking
+    public static final String GET_BOOKING_SUCCESS = "Lấy danh sách đặt vé thành công";
+    public static final String GET_BOOKING_BYID = "Lấy mã vé thành công";
+    public static final String BOOKING_SUCCESS = "Mua vé thành công, vui lòng thanh toán trong vòng 10 phút";
+    public static final String PAY_BOOKING_SUCCESS = "Thanh toán giao dịch thành công";
+    public static final String CANCEL_BOOKING_SUCCESS = "Hủy mua vé thành công";
 }

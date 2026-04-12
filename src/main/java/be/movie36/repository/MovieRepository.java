@@ -18,12 +18,10 @@ public interface MovieRepository extends JpaRepository<Movie, Long> {
 
     List<Movie> findByMovieType(MovieType movieType);
 
-    // Tìm phim theo thể loại
     List<Movie> findByGenresId(Long genreId);
 
     List<Movie> findByTitleContainingIgnoreCase(String title);
 
-
-//    @Query("SELECT COUNT(s) > 0 FROM Showtime s WHERE s.movie.id = :movieId AND s.status = 'ACTIVE'")
-//    boolean hasActiveShowtime(@Param("movieId") Long movieId);
+    @Query("SELECT COUNT(s) > 0 FROM Showtime s WHERE s.movie.id = :movieId AND s.status = be.movie36.enums.Status.ACTIVE")
+    boolean hasActiveShowtime(@Param("movieId") Long movieId);
 }

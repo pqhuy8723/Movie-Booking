@@ -89,15 +89,23 @@ public class SecurityConfig {
                                 "/api/actors/**",
                                 "/api/directors/**",
 
-                                // Cinema, Screen, Seat — public
+                                // Cinema, Screen, Seat, Pricing, Showtime — public
                                 "/api/cinemas/active",
                                 "/api/cinemas/{id}",
                                 "/api/screens/cinema/**",
                                 "/api/seats/screen/**",
+                                "/api/ticket-pricings/active",
+                                "/api/ticket-pricings/{id}",
+                                "/api/showtimes/movie/**",
+                                "/api/showtimes/screen/**",
+                                "/api/showtimes/{id}",
 
                                 // Swagger
                                 "/swagger-ui/**",
                                 "/v3/api-docs/**",
+
+                                // Payment Callback
+                                "/api/payment/vnpay/vnpay-return",
 
                                 // Static
                                 "/css/**",
@@ -113,7 +121,9 @@ public class SecurityConfig {
                                 "/api/movie-types/**",
                                 "/api/cinemas/**",
                                 "/api/screens/**",
-                                "/api/seats/**")
+                                "/api/seats/**",
+                                "/api/ticket-pricings/**",
+                                "/api/showtimes/**")
                         .hasRole("ADMIN")
 
                         .anyRequest().authenticated())

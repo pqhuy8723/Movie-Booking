@@ -47,7 +47,7 @@ public class SeatService {
                 .orElseThrow(() -> new AppException(ErrorCode.SCREEN_NOT_FOUND));
 
         if (seatRepository.existsByScreenId(screen.getId())) {
-            throw new AppException(ErrorCode.SEAT_EXISTED); // Tắt chức năng ghi đè theo yêu cầu User
+            throw new AppException(ErrorCode.SEAT_EXISTED);
         }
 
         List<Seat> seatsToSave = new ArrayList<>();

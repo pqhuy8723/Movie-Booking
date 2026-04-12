@@ -38,4 +38,9 @@ public class Showtime {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "screen_id", nullable = false)
     private Screen screen;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    @Builder.Default
+    private be.movie36.enums.Status status = be.movie36.enums.Status.ACTIVE;
 }

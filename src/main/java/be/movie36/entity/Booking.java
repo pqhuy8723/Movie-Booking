@@ -26,8 +26,10 @@ public class Booking {
     @Column(nullable = false)
     private Double totalPrice;
 
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private String status;
+    @Builder.Default
+    private be.movie36.enums.BookingStatus status = be.movie36.enums.BookingStatus.PENDING;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)

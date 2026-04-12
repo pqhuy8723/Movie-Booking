@@ -30,6 +30,10 @@ public class MovieRequest {
     @NotNull(message = "Ngày khởi chiếu không được để trống")
     private LocalDate releaseDate;
 
+    private Double rating;
+    private String ageRating; // P, K, T13, T16, T18, C
+    private String country;
+
     private String status;
 
     @NotEmpty(message = "Phim phải có ít nhất 1 thể loại")

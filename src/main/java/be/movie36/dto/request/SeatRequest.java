@@ -11,7 +11,7 @@ public class SeatRequest {
     @NotBlank(message = "Tên ghế không được để trống")
     private String name;
 
-    private String type; // VIP, STANDARD, COUPLE
+    private String type;
     private String status;
 
     @NotNull(message = "ID phòng chiếu không được để trống")
